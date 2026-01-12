@@ -1,0 +1,444 @@
+/* Menú superior fijo con efecto blur */
+.menu-superior {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 70px;
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(12px);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 40px;
+}
+
+/* Logo o título del sistema */
+.logo-sistema {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #0f4c75;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Contenedor de enlaces del menú */
+.menu-enlaces {
+    display: flex;
+    gap: 25px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+/* Enlaces del menú */
+.menu-enlaces a {
+    text-decoration: none;
+    color: #0f4c75;
+    font-weight: 600;
+    padding: 10px 15px;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    position: relative;
+}
+
+/* Iconos del menú */
+.menu-enlaces a i {
+    font-size: 1.2em;
+}
+
+/* Hover general */
+.menu-enlaces a:hover {
+    background: rgba(50, 130, 184, 0.1);
+    transform: translateY(-2px);
+}
+
+/* Elemento activo - Módulo actual */
+.menu-enlaces a.activo {
+    background: linear-gradient(135deg, #3282b8, #0f4c75);
+    color: white;
+    box-shadow: 0 4px 15px rgba(15, 76, 117, 0.3);
+}
+
+/* Badge de usuario */
+.usuario-menu {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 15px;
+    background: rgba(6, 214, 160, 0.15);
+    border-radius: 20px;
+    color: #06d6a0;
+    font-weight: 600;
+}
+
+body {
+    background: radial-gradient(circle at top left, #f0f8ff, #d1e8ff);
+    padding: 30px;
+    color: #333;
+    font-family: 'Poppins', sans-serif;
+}
+        
+.dashboard-grid {
+     display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
+    max-width: 1200px;
+    margin: 50px auto;
+}
+        
+.modulo-card {
+    background: #ffffffee;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+    text-align: center;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+}
+        
+.modulo-card:hover {
+    transform: translateY(-7px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+}
+        
+.modulo-card h2 {
+    font-size: 2em;
+    color: #0f4c75;
+    margin-bottom: 15px;
+}
+        
+.modulo-card .icon {
+    font-size: 4em;
+    margin-bottom: 20px;
+}
+        
+.modulo-card p {
+    color: #666;
+    line-height: 1.6;
+}
+
+/* Contenidor principal */
+.alertas-incidencias-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 25px;
+    max-width: 1200px;
+    margin: 20px auto 40px;
+}
+
+/* Panells */
+.panel-alertas, .panel-incidencies {
+    background: #ffffffee;
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.panel-alertas h3, .panel-incidencies h3 {
+    margin-top: 0;
+    color: #0f4c75;
+    border-bottom: 2px solid #d1e8ff;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+    font-size: 1.4em;
+}
+
+/* Elements de la llista */
+.alerta-item, .incidencia-item {
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    border-left: 4px solid #ccc;
+    background: #f9f9f9;
+    transition: transform 0.2s;
+}
+
+.alerta-item:hover, .incidencia-item:hover {
+    transform: translateX(5px);
+}
+
+/* Colors segons urgència */
+.urgencia-critica { border-left-color: #d32f2f; background: #ffebee; }
+.urgencia-alta { border-left-color: #f57c00; background: #fff3e0; }
+.urgencia-mitja { border-left-color: #fbc02d; background: #fffde7; }
+.urgencia-baixa { border-left-color: #388e3c; background: #e8f5e9; }
+
+/* Capsaleres */
+.alerta-header, .incidencia-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    font-weight: bold;
+    font-size: 0.95em;
+}
+
+.alerta-tipo, .incidencia-tipus {
+    color: #0f4c75;
+}
+
+.alerta-urgencia {
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 0.85em;
+    color: white;
+}
+
+/* Contingut */
+.alerta-missatge, .incidencia-descripcio {
+    margin: 8px 0;
+    color: #555;
+    line-height: 1.5;
+    font-size: 0.95em;
+}
+
+/* Metadades */
+.alerta-meta, .incidencia-meta {
+    font-size: 0.8em;
+    color: #777;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 8px;
+}
+
+/* Missatge quan no hi ha dades */
+.no-data {
+    text-align: center;
+    color: #4caf50;
+    font-weight: bold;
+    padding: 20px;
+    margin: 0;
+}
+
+/* Estils per enllaços clickables */
+.alerta-item, .incidencia-item {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.alerta-item:hover, .incidencia-item:hover {
+    transform: translateX(5px) scale(1.02);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    background: white;
+}
+
+/* Per evitar que els spans dins dels enllaços heretin el color */
+.alerta-item span, .incidencia-item span {
+    color: inherit;
+}
+
+/* Efecte hover en les metadades */
+.alerta-meta, .incidencia-meta {
+    color: #777;
+    transition: color 0.2s;
+}
+
+.alerta-item:hover .alerta-meta, 
+.incidencia-item:hover .incidencia-meta {
+    color: #0f4c75;
+}
+
+
+
+
+
+
+
+
+
+/* Panell d'alertes */
+.alertas-dashboard {
+    max-width: 1200px;
+    margin: 20px auto;
+    background: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    overflow: hidden;
+}
+
+.alertas-header {
+    background: linear-gradient(135deg, #d32f2f, #b71c1c);
+    color: white;
+    padding: 20px 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.alertas-header h3 {
+    margin: 0;
+    font-size: 1.5em;
+}
+
+.refrescar-btn {
+    color: white;
+    text-decoration: none;
+    background: rgba(255,255,255,0.2);
+    padding: 8px 15px;
+    border-radius: 20px;
+    font-size: 0.9em;
+    transition: background 0.3s;
+}
+
+.refrescar-btn:hover {
+    background: rgba(255,255,255,0.3);
+}
+
+.alertas-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 15px;
+    padding: 25px;
+}
+
+.alerta-tarjeta {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    border-radius: 10px;
+    border-left: 5px solid #ccc;
+    background: #f9f9f9;
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.3s ease;
+}
+
+.alerta-tarjeta:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+    background: white;
+}
+
+.urgencia-critica { border-left-color: #d32f2f; background: #ffebee; }
+.urgencia-alta { border-left-color: #f57c00; background: #fff3e0; }
+.urgencia-mitja { border-left-color: #fbc02d; background: #fffde7; }
+
+.alerta-icono {
+    font-size: 2em;
+    margin-right: 15px;
+    width: 50px;
+    text-align: center;
+}
+
+.alerta-contenido {
+    flex: 1;
+}
+
+.alerta-tipo {
+    font-weight: bold;
+    color: #0f4c75;
+    font-size: 0.85em;
+    text-transform: uppercase;
+}
+
+.alerta-mensaje {
+    margin: 5px 0;
+    color: #333;
+    font-size: 0.95em;
+    font-weight: 500;
+}
+
+.alerta-meta {
+    font-size: 0.8em;
+    color: #666;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 8px;
+}
+
+.alerta-urgencia-badge {
+    background: #333;
+    color: white;
+    padding: 4px 10px;
+    border-radius: 15px;
+    font-size: 0.75em;
+    font-weight: bold;
+    align-self: flex-start;
+}
+
+/* Assegurar que els enllaços no canvien l'aspecte */
+.alerta-tarjeta {
+    text-decoration: none;
+    color: inherit;
+}
+
+.alerta-tarjeta:hover {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* Evitar que els spans dins heretin el blau d'enllaç */
+.alerta-tarjeta span {
+    color: inherit;
+}
+
+
+/* Responsive */
+@media (max-width: 768px) {
+    .alertas-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+/* Responsive */
+@media (max-width: 768px) {
+    .alertas-incidencias-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+/* Espaciado para el contenido principal */
+body {
+    padding-top: 100px; /* Deja espacio para el menú fijo */
+}
+
+/* Responsive del menú */
+@media (max-width: 768px) {
+    .menu-superior {
+        padding: 0 20px;
+        height: 60px;
+    }
+    
+    .menu-enlaces {
+        gap: 10px;
+    }
+    
+    .menu-enlaces a {
+        padding: 8px 10px;
+        font-size: 0.9em;
+    }
+    
+    .menu-enlaces a span {
+        display: none; /* Oculta texto en móviles, solo iconos */
+    }
+}
+
+/* Animaciones */
+@keyframes menu-slide {
+    from {
+        transform: translateY(-100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.menu-superior {
+    animation: menu-slide 0.5s ease-out;
+}
