@@ -1,5 +1,4 @@
 <?php
-// 1. Configuración de errores y sesión (Debe ir al principio)
 session_start();
 require '../db.php';
 
@@ -54,10 +53,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['guardar_fila'])) {
 
 // 4. Carga de datos para el formulario
 try {
-    // IMPORTANTE: Verifica si tu columna es 'activo' o 'activa'
     $sectores = $pdo->query("SELECT id, nombre, coordenadas_geojson FROM sectores_cultivo WHERE activo = 1")->fetchAll(PDO::FETCH_ASSOC);
     $variedades = $pdo->query("SELECT id, nombre FROM variedades")->fetchAll(PDO::FETCH_ASSOC);
-    $filas_existentes = $pdo->query("SELECT * FROM filas_arboles")->fetchAll(PDO::FETCH_ASSOC);
+    
+    // Consulta mejorada con JOIN para ver el nombre de la variedad
+    $filas_existentes = $pdo->query("
+        SELECT f.*, v.nombre as nombre_variedad 
+        FROM filas_arboles f 
+        LEFT JOIN variedades v ON f.variedad_id = v.id
+    ")->fetchAll(PDO::FETCH_ASSOC);
 } catch (PDOException $e) {
     die("Error en la base de datos: " . $e->getMessage());
 }
@@ -144,8 +148,19 @@ try {
     });
     map.addControl(drawControl);
 
+    // Evento al dibujar: ACUMULAR LÍNEAS Y AÑADIR POPUP TEMPORAL
     map.on(L.Draw.Event.CREATED, function (e) {
-        drawnItems.addLayer(e.layer);
+        var layer = e.layer;
+        
+        // Calculamos el número que tendrá esta fila basándonos en el input
+        var inicio = parseInt(document.getElementsByName('numero_fila_inicio')[0].value) || 1;
+        var conteoActual = drawnItems.getLayers().length;
+        var numeroFila = inicio + conteoActual;
+
+        // Añadimos un popup para saber qué estamos dibujando
+        layer.bindPopup("<b>Nueva Fila: " + numeroFila + "</b><br><span class='text-muted'>Pendiente de guardar</span>");
+        
+        drawnItems.addLayer(layer);
         actualizarTextarea();
     });
 
@@ -157,8 +172,8 @@ try {
         document.getElementById('geojson_input').value = JSON.stringify(data);
     }
 
+    // Centrar mapa al elegir sector
     const listaSectores = <?= json_encode($sectores) ?>;
-
     document.getElementById('select_sector').addEventListener('change', function() {
         const id = this.value;
         const sector = listaSectores.find(s => s.id == id);
@@ -169,13 +184,34 @@ try {
         }
     });
 
-    // Cargar existentes
+    // Cargar existentes con POPUP de información real
     <?php foreach($filas_existentes as $fila): ?>
         try { 
-            L.geoJSON(<?= $fila['coordenadas_geojson'] ?>, {
-                style: {color:'#ffcc00', weight:2}
+            var geojsonFila = <?= $fila['coordenadas_geojson'] ?>;
+            L.geoJSON(geojsonFila, {
+                style: {color:'#ffcc00', weight:3},
+                onEachFeature: function (feature, layer) {
+                    layer.bindPopup(`
+                        <div style="min-width: 160px;">
+                            <div class="text-uppercase fw-bold text-secondary" style="font-size: 0.7rem;">Sector</div>
+                            <h6 class="mb-1 text-success"><?= $fila['nombre_sector'] ?? 'No asignado' ?></h6>
+                            
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="fw-bold">Fila Nº <?= $fila['numero_fila'] ?></span>
+                                <span class="badge bg-primary">ID: <?= $fila['id'] ?></span>
+                            </div>
+                            
+                            <hr class="my-1">
+                            
+                            <div class="small">
+                                <b>Variedad:</b> <?= $fila['nombre_variedad'] ?? 'No definida' ?><br>
+                                <b>Árboles:</b> <?= $fila['numero_arboles'] ?? 'N/C' ?>
+                            </div>
+                        </div>
+                    `);
+                }
             }).addTo(map); 
-        } catch(e){}
+        } catch(e){ console.error("Error cargando fila: ", e); }
     <?php endforeach; ?>
 </script>
 </body>

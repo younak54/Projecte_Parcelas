@@ -39,7 +39,11 @@ $cultius = $pdo->query("SELECT id, nombre_comun FROM cultivos ORDER BY nombre_co
 $varietats = $pdo->query("SELECT id, nombre, cultivo_id FROM variedades ORDER BY nombre")->fetchAll(PDO::FETCH_ASSOC);
 
 // Obtenir Sectors
-$sectors = $pdo->query("SELECT s.id, s.codigo, p.nombre as p_nom FROM sectores_cultivo s JOIN sectores_parcelas sp ON s.id = sp.sector_id JOIN parcelas p ON sp.parcela_id = p.id WHERE s.activo = 1")->fetchAll(PDO::FETCH_ASSOC);
+$sectors = $pdo->query("SELECT s.id, s.codigo, p.nombre as p_nom 
+                        FROM sectores_cultivo s 
+                        JOIN parcelas p ON s.parcela_id = p.id 
+                        WHERE s.activo = 1 
+                        ORDER BY p.nombre, s.codigo")->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 <!DOCTYPE html>

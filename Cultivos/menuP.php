@@ -16,12 +16,6 @@ require '../db.php';
     </h1>
     
     <div class="dashboard-grid">
-        <a href="/pro/Cultivos/sectorCultivos.php" class="modulo-card">
-            <div class="icon">➕</div>
-            <h2>Alta Sector</h2>
-            <p>Registro inicial de cada Sector de la parcela con datos clave para su seguimiento y control agronómico.</p>
-        </a>
-
         <a href="/pro/Cultivos/index.php" class="modulo-card">
             <div class="icon">🌱</div>
             <h2>Alta de Cultivos</h2>

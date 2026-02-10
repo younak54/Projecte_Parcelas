@@ -38,6 +38,12 @@ require '../db.php';
             <h2>Registro de Fertilizante</h2>
             <p>Control de herbicidas, fertilizantes y tratamientos fitosanitarios con cumplimiento normativo y alertas automáticas.</p>
         </a>
+
+        <a href="/pro/Tractament/Observacions.php" class="modulo-card">
+            <div class="icon">O</div>
+            <h2>Observacions</h2>
+            <p>Control de Secotrs, Observacions indicades per els responsables/empleats</p>
+        </a>
     </div>
 </body>
 </html>

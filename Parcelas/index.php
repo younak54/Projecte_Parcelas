@@ -13,6 +13,7 @@ $tipos_suelo = $pdo->query("SELECT * FROM tipos_suelo ORDER BY tipo")->fetchAll(
     <meta charset="UTF-8">
     <title>🌳 Gestión de Parcelas y Cultivos</title>
     <link rel="stylesheet" href="../css/parcela.css">
+    <link rel="stylesheet" href="../menu.css">
 
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.css"/>
@@ -38,7 +39,7 @@ $tipos_suelo = $pdo->query("SELECT * FROM tipos_suelo ORDER BY tipo")->fetchAll(
             color: #2d5a27;
             font-weight: bold;
             font-size: 1.1em;
-            margin-bottom: 8px; /* Espacio debajo del nombre */
+            margin-bottom: 8px;
             border-bottom: 1px solid #eee;
             padding-bottom: 4px;
         }
@@ -47,12 +48,12 @@ $tipos_suelo = $pdo->query("SELECT * FROM tipos_suelo ORDER BY tipo")->fetchAll(
             display: block;
             font-size: 0.9em;
             color: #555;
-            margin-bottom: 3px; /* Espacio entre líneas de datos */
+            margin-bottom: 3px;
         }
 
         .btn-detalle-mapa {
             display: block;
-            margin-top: 12px; /* Espacio antes del botón */
+            margin-top: 12px;
             padding: 8px;
             background: #2d5a27;
             color: white !important;
@@ -80,6 +81,7 @@ $tipos_suelo = $pdo->query("SELECT * FROM tipos_suelo ORDER BY tipo")->fetchAll(
     </style>
 </head>
 <body>
+    <?php include '../menu.php'; ?>
     <h1>🌳 Gestión de Parcelas y Cultivos</h1>
 
     <div id="map-container">
@@ -170,7 +172,7 @@ $tipos_suelo = $pdo->query("SELECT * FROM tipos_suelo ORDER BY tipo")->fetchAll(
     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.js"></script>
     <script>
     // Inicializar mapa satelital
-    const map = L.map('map').setView([41.629806, 0.893274], 15);
+    const map = L.map('map').setView([41.6297, 0.8955], 15);
     L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
         attribution: 'Esri Satellite'
     }).addTo(map);
