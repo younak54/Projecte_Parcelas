@@ -432,14 +432,4 @@ try {
 } catch(PDOException $e) {
     $log[] = "Anàlisis ERROR: " . $e->getMessage();
 }
-
-// ============================================================================
-// RESUM
-// ============================================================================
-echo json_encode([
-    'success' => true,
-    'total_alertes_creades' => $totalAlertes,
-    'data_execucio' => date('Y-m-d H:i:s'),
-    'moduls_verificats' => $log
-], JSON_PRETTY_PRINT);
 ?>
