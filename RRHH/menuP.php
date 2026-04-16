@@ -18,7 +18,7 @@ require '../db.php';
     <div class="dashboard-grid">
         <a href="/pro/Personal/empleados.php" class="modulo-card">
             <div class="icon">👥</div>
-            <h2>Gestión de Horarios</h2>
+            <h2>Gestión de Personal</h2>
             <p>Gestiona empleados, contratos y control de jornadas. Módulo completo de recursos humanos para la explotación.</p>
         </a>
 

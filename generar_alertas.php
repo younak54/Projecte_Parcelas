@@ -72,9 +72,6 @@ function crearAlerta($pdo, $datos, $esSistema = false) {
 $totalAlertes = 0;
 $log = [];
 
-// ============================================================================
-// 1. ALERTES DE DOCUMENTS (RRHH - Tabla: alertes)
-// ============================================================================
 try {
     $stmt = $pdo->query("
         SELECT d.id_document, d.id_treballador, d.tipus_document, d.data_venciment 
@@ -101,9 +98,6 @@ try {
     $log[] = "Documents ERROR: " . $e->getMessage();
 }
 
-// ============================================================================
-// 2. ALERTES DE CONTRACTES (RRHH - Tabla: alertes)
-// ============================================================================
 try {
     $stmt = $pdo->query("
         SELECT c.id_contracte, c.id_treballador, c.tipus_contracte, c.data_final 
@@ -131,9 +125,6 @@ try {
     $log[] = "Contractes ERROR: " . $e->getMessage();
 }
 
-// ============================================================================
-// 3. ALERTES DE CERTIFICACIONS (RRHH - Tabla: alertes)
-// ============================================================================
 try {
     $stmt = $pdo->query("
         SELECT c.id_certificacio, c.id_treballador, c.tipus_certificacio, c.data_caducitat 
@@ -160,9 +151,6 @@ try {
     $log[] = "Certificacions ERROR: " . $e->getMessage();
 }
 
-// ============================================================================
-// 4. ALERTES DE VACANCES/PERMISOS PENDENTS (RRHH - Tabla: alertes)
-// ============================================================================
 try {
     $stmt = $pdo->query("
         SELECT vp.id_absencia, vp.id_treballador, vp.tipus_absencia, 
@@ -191,9 +179,6 @@ try {
     $log[] = "Vacances/Permisos ERROR: " . $e->getMessage();
 }
 
-// ============================================================================
-// 5. ALERTES D'ESTOC MÍNIM (Sistema - Tabla: alertes_sistema)
-// ============================================================================
 try {
     $stmt = $pdo->query("
         SELECT s.id as stock_id, h.nombre_comercial, s.cantidad_actual, s.stock_minimo 
@@ -218,9 +203,6 @@ try {
     $log[] = "Estoc ERROR: " . $e->getMessage();
 }
 
-// ============================================================================
-// 6. ALERTES DE LOTS CADUCATS (Sistema - Tabla: alertes_sistema)
-// ============================================================================
 try {
     $stmt = $pdo->query("
         SELECT lh.id as lote_id, lh.numero_lote, lh.fecha_caducidad, lh.cantidad_actual,
@@ -252,9 +234,6 @@ try {
     $log[] = "Lots herbicides ERROR: " . $e->getMessage();
 }
 
-// ============================================================================
-// 7. ALERTES DE TRACTAMENTS PENDENTS (Sistema - Tabla: alertes_sistema)
-// ============================================================================
 try {
     $stmt = $pdo->query("
         SELECT t.id_tasca, t.id_sector, t.tipus_tasca, t.data_inici_finestra, t.data_final_finestra,
@@ -287,9 +266,6 @@ try {
     $log[] = "Tractaments pendents ERROR: " . $e->getMessage();
 }
 
-// ============================================================================
-// 8. ALERTES DE PLAGUES DETECTADES (Sistema - Tabla: alertes_sistema)
-// ============================================================================
 try {
     $stmt = $pdo->query("
         SELECT mp.id as plaga_id, mp.id_sector, mp.tipus_plaga, mp.nivell_incidencia, 
@@ -320,9 +296,6 @@ try {
     $log[] = "Plagues ERROR: " . $e->getMessage();
 }
 
-// ============================================================================
-// 9. ALERTES DE COSECHES PREVISTES (Sistema - Tabla: alertes)
-// ============================================================================
 try {
     $stmt = $pdo->query("
         SELECT sf.id as fenologic_id, sf.id_sector, sf.estat_fenologic, 
@@ -358,16 +331,13 @@ try {
             'data_venciment' => date('Y-m-d', strtotime('+14 days')),
             'missatge' => "Cosecha prevista: $cultiu ($varietat) a $sector",
             'urgencia' => ($cosecha['intensitat'] == 'ALTA') ? 'ALTA' : 'MITJA'
-        ], false); // Guardar en alertes (no está en el ENUM de alertes_sistema)
+        ], false);
     }
     $log[] = "Coseches previstes: OK";
 } catch(PDOException $e) {
     $log[] = "Coseches previstes ERROR: " . $e->getMessage();
 }
 
-// ============================================================================
-// 10. ALERTES DE MANTENIMENT DE MAQUINÀRIA (Sistema - Tabla: alertes_sistema)
-// ============================================================================
 try {
     $stmt = $pdo->query("
         SELECT ma.id_maquinaria, ma.nom_maquinaria, ma.tipus, ma.hores_us_acumulades,
@@ -402,9 +372,6 @@ try {
     $log[] = "Maquinària ERROR: " . $e->getMessage();
 }
 
-// ============================================================================
-// 11. ALERTES D'ANÀLISIS PENDENTS (Sistema - Tabla: alertes_sistema)
-// ============================================================================
 try {
     $stmt = $pdo->query("
         SELECT am.id as analisi_id, am.id_parcela, am.id_sector, 

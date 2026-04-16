@@ -44,6 +44,12 @@ require '../db.php';
             <h2>Observacions</h2>
             <p>Control de Secotrs, Observacions indicades per els responsables/empleats</p>
         </a>
+
+        <a href="/pro/Tractament/FichasTractament.php" class="modulo-card">
+            <div class="icon">T</div>
+            <h2>Fichas de Tratamiento por Parcela</h2>
+            <p>Control de Secotrs, Observacions indicades per els responsables/empleats</p>
+        </a>
     </div>
 </body>
 </html>

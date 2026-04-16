@@ -1,0 +1,226 @@
+/* Reset y fuente */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Fondo general */
+body {
+    background: radial-gradient(circle at top left, #f0f8ff, #d1e8ff);
+    padding: 30px;
+    color: #333;
+}
+
+/* Encabezados */
+h1 {
+    text-align: center;
+    font-size: 2.8em;
+    margin-bottom: 20px;
+    color: #1b262c;
+    text-shadow: 1px 1px 5px rgba(0,0,0,0.1);
+}
+
+h2 {
+    text-align: center;
+    font-size: 1.8em;
+    margin: 40px 0 20px 0;
+    color: #0f4c75;
+}
+
+/* Formulario principal */
+#form-principal {
+    background: #ffffffee;
+    padding: 30px;
+    border-radius: 20px;
+    max-width: 600px;
+    margin: 0 auto 50px auto;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+    transition: all 0.3s ease;
+}
+
+#form-principal input, #form-principal button, #form-principal select, #form-principal textarea {
+    width: 100%;
+    padding: 14px 12px;
+    margin-top: 12px;
+    margin-bottom: 15px;
+    border-radius: 12px;
+    border: 1px solid #ccc;
+    font-size: 1em;
+    transition: all 0.2s ease;
+}
+
+#form-principal input:focus, #form-principal select:focus, #form-principal textarea:focus {
+    border-color: #0f4c75;
+    box-shadow: 0 0 8px rgba(15,76,117,0.5);
+    outline: none;
+}
+
+#form-principal button {
+    background: linear-gradient(135deg, #3282b8, #0f4c75);
+    color: #fff;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+#form-principal button:hover {
+    background: linear-gradient(135deg, #0f4c75, #3282b8);
+    transform: translateY(-2px);
+}
+
+/* Contenedor de tarjetas */
+.cards-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Tarjetas individuales */
+.card {
+    background: linear-gradient(145deg, #caf0f8, #90e0ef);
+    border-radius: 20px;
+    padding: 25px;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.12);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.card:hover {
+    transform: translateY(-7px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+}
+
+/* Contenido de la tarjeta */
+.card h3 {
+    font-size: 1.5em;
+    margin-bottom: 12px;
+    color: #03045e;
+}
+
+.card p {
+    font-size: 1em;
+    margin-bottom: 8px;
+    color: #0077b6;
+}
+
+/* Botones en tarjeta */
+.card .btn-borrar,
+.card .btn-actualizar {
+    padding: 10px 18px;
+    font-size: 0.9em;
+    font-weight: 600;
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
+    display: inline-block;
+    margin-top: 12px;
+    transition: all 0.3s ease;
+}
+
+.card .btn-borrar {
+    background: linear-gradient(135deg, #ff416c, #ff4b2b);
+    color: #fff;
+}
+
+.card .btn-borrar:hover {
+    transform: translateY(-2px);
+    background: linear-gradient(135deg, #ff4b2b, #ff416c);
+}
+
+.card .btn-actualizar {
+    background: linear-gradient(135deg, #ffd166, #f4a261);
+    color: #fff;
+    margin-left: 10px;
+}
+
+.card .btn-actualizar:hover {
+    transform: translateY(-2px);
+    background: linear-gradient(135deg, #f4a261, #ffd166);
+}
+
+/* Contenedor de botones */
+.form-buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.form-buttons button {
+    flex: 1;
+}
+
+form label {
+    display: block;
+    margin-top: 15px;
+    margin-bottom: 5px;
+    font-weight: 600;
+    color: #0f4c75;
+    font-size: 1em;
+}
+
+/* Textarea */
+textarea {
+    resize: vertical;
+    min-height: 80px;
+    font-family: inherit;
+}
+
+/* Botón de cancelar */
+.btn-cancelar {
+    display: inline-block;
+    padding: 10px 18px;
+    font-size: 0.9em;
+    font-weight: 600;
+    border-radius: 12px;
+    text-decoration: none;
+    color: #fff;
+    background: linear-gradient(135deg, #9b9b9b, #6e6e6e);
+    transition: all 0.3s ease;
+    text-align: center;
+}
+
+.btn-cancelar:hover {
+    background: linear-gradient(135deg, #6e6e6e, #9b9b9b);
+    transform: translateY(-2px);
+}
+
+/* Estados */
+.status {
+    font-weight: bold;
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 10px;
+    font-size: 0.9em;
+}
+
+.status.activo {
+    background: linear-gradient(135deg, #06d6a0, #118ab2);
+    color: white;
+}
+
+.status.inactivo {
+    background: linear-gradient(135deg, #ff416c, #ff4b2b);
+    color: white;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .cards-container {
+        grid-template-columns: 1fr;
+    }
+
+    #form-principal {
+        width: 95%;
+        padding: 20px;
+    }
+    
+    .form-buttons {
+        flex-direction: column;
+    }
+}

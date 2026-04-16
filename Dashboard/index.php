@@ -30,6 +30,11 @@ require '../db.php';
             <h2>Gestión de filas</h2>
             <p>Gestiona filas, módulo completo de filas para la explotación.</p>
         </a>
+        <a href="/pro/Dashboard/VeureRendiment.php" class="modulo-card">
+            <div class="icon">📊</div>
+            <h2>Gestión de filas</h2>
+            <p>Gestiona filas, módulo completo de filas para la explotación.</p>
+        </a>
         </div>
     </div>
 </body>

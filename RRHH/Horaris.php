@@ -274,8 +274,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['guardar_fichaje_manua
         
         /* Panel superior de resumen */
         .resumen-fichajes {
-            background: white;
-            color: black;
+            background: #1b262c;
+            color: white;
             padding: 20px;
             margin: 20px;
             border-radius: 10px;
@@ -287,9 +287,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['guardar_fichaje_manua
         
         .resumen-item {
             text-align: center;
-        }
-        .resumen-item a{
-            text-decoration: none;
         }
         
         .resumen-numero {
