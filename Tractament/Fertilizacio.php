@@ -21,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['registrar_fertilizacio
 }
 
 // Consultas para los desplegables
-$sectors = $pdo->query("SELECT s.id, p.nombre as p_nom, s.codigo FROM sectores_cultivo s JOIN sectores_parcelas sp ON s.id = sp.sector_id JOIN parcelas p ON sp.parcela_id = p.id WHERE s.activo = 1 ORDER BY p.nombre, s.codigo")->fetchAll();
+$sectors = $pdo->query("SELECT id, codigo as p_nom, codigo FROM sectores_cultivo WHERE activo = 1")->fetchAll();
 $fertilitzants = $pdo->query("SELECT id, nombre_comercial FROM fertilizantes WHERE activo = 1 ORDER BY nombre_comercial")->fetchAll();
 ?>
 
@@ -52,7 +52,7 @@ $fertilitzants = $pdo->query("SELECT id, nombre_comercial FROM fertilizantes WHE
                 <select name="sector_id" required>
                     <option value="">-- Selecciona Sector --</option>
                     <?php foreach($sectors as $s): ?>
-                        <option value="<?= $s['id'] ?>"><?= htmlspecialchars($s['p_nom'] . " - " . $s['codigo']) ?></option>
+                        <option value="<?= $s['id'] ?>"><?= htmlspecialchars($s['p_nom']) ?></option>
                     <?php endforeach; ?>
                 </select>
             </div>

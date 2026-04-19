@@ -26,11 +26,11 @@ $sql = "SELECT
             h.fecha_plantacion,
             h.fecha_arrancada
         FROM historial_cultivos h
-        JOIN sectores_cultivo s ON h.sector_id = s.id
-        JOIN sectores_parcelas sp ON s.id = sp.sector_id
-        JOIN parcelas p ON sp.parcela_id = p.id
-        JOIN variedades v ON h.variedad_id = v.id
-        JOIN cultivos c ON v.cultivo_id = c.id
+        LEFT JOIN sectores_cultivo s ON h.sector_id = s.id
+        LEFT JOIN sectores_parcelas sp ON s.id = sp.sector_id
+        LEFT JOIN parcelas p ON sp.parcela_id = p.id
+        LEFT JOIN variedades v ON h.variedad_id = v.id
+        LEFT JOIN cultivos c ON v.cultivo_id = c.id
         ORDER BY h.fecha_arrancada ASC, h.fecha_plantacion DESC";
 
 $stmt = $pdo->query($sql);

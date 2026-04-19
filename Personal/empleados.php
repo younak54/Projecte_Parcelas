@@ -157,7 +157,7 @@ $tipos_doc = $pdo->query("SELECT
                     </form>
                     
                     <form method="GET" action="ActPersonal.php" style="display:inline;">
-                        <input type="hidden" name="id_treballador" value="<?= $emp['id'] ?>">
+                        <input type="hidden" name="id" value="<?= $emp['id'] ?>">
                         <button type="submit" class="btn-actualizar">✏️ Actualizar</button>
                     </form>
                 </div>

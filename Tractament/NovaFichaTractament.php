@@ -51,10 +51,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         
         // 1. Crear ficha principal
         $stmt = $pdo->prepare("
-            INSERT INTO fichas_tractament 
-            (id_sector, tipus_tractament, descripcio, estat, data_inici, data_fi_prevista,
-             superficie_ha, producte_utilitzat, dosis_aplicada, unitat_dosis, 
-             observacions, id_supervisor)
+            INSERT INTO `fichas_tractament` 
+            (`id_sector`, `tipus_tractament`, `descripcio`, `estat`, `data_inici`, `data_fi_prevista`,
+            `superficie_ha`, `producte_utilitzat`, `dosis_aplicada`, `unitat_dosis`, 
+            `observacions`, `id_supervisor`)
             VALUES (?, ?, ?, 'PENDENT', ?, ?, ?, ?, ?, ?, ?, ?)
         ");
         

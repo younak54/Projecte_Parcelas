@@ -33,18 +33,7 @@ require '../db.php';
             <h2>Tasques de Personal</h2>
             <p>Controla parcelas, sectores de cultivo, variedades, historial de cultivos y visualización en mapa interactivo georreferenciado.</p>
         </a>
-        
-        <div class="modulo-card" onclick="alert('Módulo en desarrollo')">
-            <div class="icon">🌿</div>
-            <h2>Gestión de Tratamientos</h2>
-            <p>Control de herbicidas, fertilizantes y tratamientos fitosanitarios con cumplimiento normativo y alertas automáticas.</p>
-        </div>
-        
-        <div class="modulo-card" onclick="alert('Módulo en desarrollo')">
-            <div class="icon">📊</div>
-            <h2>Dashboard y Análisis</h2>
-            <p>Visualiza métricas clave, rendimientos, costes laborales y toma decisiones basadas en datos.</p>
-        </div>
+
     </div>
 </body>
 </html>

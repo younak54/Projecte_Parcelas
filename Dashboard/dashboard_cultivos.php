@@ -160,6 +160,8 @@ $grafico_data = $pdo->query("SELECT v.nombre, AVG(h.rendimiento_kg_ha) as promed
             </div>
         </div>
     </div>
+
+    <a href="index.php"><--Volver</a>
 </div>
 
 <script>
