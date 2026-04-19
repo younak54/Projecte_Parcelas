@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 16-04-2026 a las 13:05:40
+-- Tiempo de generación: 19-04-2026 a las 19:43:26
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -54,7 +54,11 @@ INSERT INTO `alertes` (`id_alerta`, `id_treballador`, `id_referencia`, `taula_re
 (4, 1, 401, 'registre_collites', 'COSECHA_PREVISTA', '2025-11-21', '2025-11-29', 'Cosecha de Golden Delicious completada.', 'BAIXA', 1, NULL, NULL, NULL, '2025-12-01 09:10:03'),
 (5, 6, 501, 'tasques', 'TRACTAMENT_PENDENT', '2025-11-30', '2025-12-03', 'Tractament preventiu de fong pendent al sector SEC-002. Finestra òptima propera.', 'ALTA', 0, NULL, NULL, NULL, '2025-12-01 09:10:10'),
 (8, 16, 3, 'documentacio', 'VENCIMENT_DOCUMENT', '2025-12-01', '2025-12-03', 'Document \'Certificado Manejo Fitosanitario\' vence en 2 dies', 'CRITICA', 0, NULL, NULL, NULL, '2025-12-01 09:42:45'),
-(9, NULL, 1, 'stock_herbicidas', 'ESTOC_MINIM', '2025-12-01', '2025-12-08', 'Stock baix: TEST GLIFOSAT (3.50 uds)', 'ALTA', 0, NULL, NULL, NULL, '2025-12-01 09:42:45');
+(9, NULL, 1, 'stock_herbicidas', 'ESTOC_MINIM', '2025-12-01', '2025-12-08', 'Stock baix: TEST GLIFOSAT (3.50 uds)', 'ALTA', 0, NULL, NULL, NULL, '2025-12-01 09:42:45'),
+(10, 1, 101, 'documentacio', 'VENCIMENT_DOCUMENT', '2026-04-16', '2026-04-18', 'Documento de identidad vence en 2 días. Renovación urgente requerida.', 'CRITICA', 0, NULL, NULL, NULL, '2026-04-16 11:42:03'),
+(11, 6, 201, 'monitoratge_plagues', 'PLAGA_DETECTADA', '2026-04-16', '2026-04-19', 'Pulgón verde detectado en sector SEC-001. Tratamiento urgente en 72h.', 'ALTA', 0, NULL, NULL, NULL, '2026-04-16 11:42:03'),
+(12, 6, 501, 'tasques', 'TRACTAMENT_PENDENT', '2026-04-16', '2026-04-18', 'Tratamiento preventivo de hongos pendiente en sector SEC-002.', 'ALTA', 0, NULL, NULL, NULL, '2026-04-16 11:42:03'),
+(13, NULL, 1, 'stock_herbicidas', 'ESTOC_MINIM', '2026-04-16', '2026-04-23', 'Stock bajo: GLIFOSATO (2.5 unidades restantes)', 'MITJA', 0, NULL, NULL, NULL, '2026-04-16 11:42:03');
 
 --
 -- Disparadores `alertes`
@@ -220,7 +224,8 @@ CREATE TABLE `assignacions` (
 --
 
 INSERT INTO `assignacions` (`id_assignacio`, `id_tasca`, `id_treballador`, `data_assignacio`, `hora_inici_real`, `hora_final_real`, `estat`, `notes`, `created_at`) VALUES
-(8, 8, 6, '2025-12-15', NULL, NULL, 'PENDENT', NULL, '2025-12-15 08:42:30');
+(8, 8, 6, '2025-12-15', NULL, NULL, 'PENDENT', NULL, '2025-12-15 08:42:30'),
+(9, 9, 6, '2026-04-19', NULL, NULL, 'PENDENT', NULL, '2026-04-19 15:33:09');
 
 -- --------------------------------------------------------
 
@@ -516,6 +521,34 @@ INSERT INTO `fertilizantes` (`id`, `nombre_comercial`, `composicion_npk`, `tipo`
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `fichas_tractament`
+--
+
+CREATE TABLE `fichas_tractament` (
+  `id_ficha` int(11) NOT NULL,
+  `id_sector` int(11) NOT NULL,
+  `id_supervisor` int(11) DEFAULT NULL,
+  `superficie_ha` decimal(10,2) DEFAULT NULL,
+  `producte_utilitzat` varchar(255) DEFAULT NULL,
+  `dosis_aplicada` varchar(100) DEFAULT NULL,
+  `unitat_dosis` varchar(20) DEFAULT NULL,
+  `estat` enum('PENDENT','EN_CURS','COMPLETAT','PAUSAT') DEFAULT 'PENDENT',
+  `data_inici` date DEFAULT NULL,
+  `data_fi_prevista` date DEFAULT NULL,
+  `data_fi` date DEFAULT NULL,
+  `tipus_tractament` enum('FITOSANITARI','FERTILITZACIO','PODA','RECOLLECCIO') NOT NULL,
+  `descripcio` text DEFAULT NULL,
+  `data_creacio` timestamp NOT NULL DEFAULT current_timestamp(),
+  `dosi` varchar(100) DEFAULT NULL,
+  `maquinaria` varchar(255) DEFAULT NULL,
+  `condicions_meteo` varchar(255) DEFAULT NULL,
+  `responsable_id` int(11) DEFAULT NULL,
+  `observacions` text DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `filas_arboles`
 --
 
@@ -527,6 +560,17 @@ CREATE TABLE `filas_arboles` (
   `numero_arboles` int(11) DEFAULT NULL,
   `variedad_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `filas_arboles`
+--
+
+INSERT INTO `filas_arboles` (`id`, `sector_id`, `numero_fila`, `coordenadas_geojson`, `numero_arboles`, `variedad_id`) VALUES
+(52, 11, 1, '{\"type\":\"Feature\",\"properties\":[],\"geometry\":{\"type\":\"LineString\",\"coordinates\":[[0.881304,41.627501],[0.882275,41.628195]]}}', NULL, 1),
+(53, 11, 2, '{\"type\":\"Feature\",\"properties\":[],\"geometry\":{\"type\":\"LineString\",\"coordinates\":[[0.881374,41.627485],[0.882302,41.628134]]}}', NULL, 1),
+(54, 11, 3, '{\"type\":\"Feature\",\"properties\":[],\"geometry\":{\"type\":\"LineString\",\"coordinates\":[[0.881454,41.627457],[0.882334,41.628094]]}}', NULL, 1),
+(55, 11, 4, '{\"type\":\"Feature\",\"properties\":[],\"geometry\":{\"type\":\"LineString\",\"coordinates\":[[0.881519,41.627429],[0.882323,41.628034]]}}', NULL, 1),
+(56, 11, 5, '{\"type\":\"Feature\",\"properties\":[],\"geometry\":{\"type\":\"LineString\",\"coordinates\":[[0.881572,41.627397],[0.882382,41.628002]]}}', NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -559,6 +603,47 @@ CREATE TABLE `fotos_parcela` (
   `longitud` decimal(11,8) DEFAULT NULL,
   `fecha_foto` date DEFAULT NULL,
   `descripcion` text DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `grups_treball`
+--
+
+CREATE TABLE `grups_treball` (
+  `id_grup` int(11) NOT NULL,
+  `id_ficha` int(11) NOT NULL,
+  `nom_grup` varchar(100) NOT NULL,
+  `descripcio` text DEFAULT NULL,
+  `data_creacio` timestamp NOT NULL DEFAULT current_timestamp(),
+  `responsable_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `grup_treballadors`
+--
+
+CREATE TABLE `grup_treballadors` (
+  `id_grup` int(11) NOT NULL,
+  `nom_grup` varchar(100) NOT NULL,
+  `descripcio` text DEFAULT NULL,
+  `data_creacio` timestamp NOT NULL DEFAULT current_timestamp(),
+  `id_treballador` int(11) NOT NULL,
+  `rol_en_grup` varchar(50) DEFAULT 'OPERARI'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `grup_treballadors_treballadors`
+--
+
+CREATE TABLE `grup_treballadors_treballadors` (
+  `id_grup` int(11) NOT NULL,
+  `id_treballador` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -634,7 +719,9 @@ CREATE TABLE `historial_cultivos` (
 
 INSERT INTO `historial_cultivos` (`id`, `sector_id`, `variedad_id`, `fecha_plantacion`, `fecha_arrancada`, `marco_plantacion`, `numero_arboles_plantados`, `arboles_fallados`, `origen_material`, `sistema_formacion`, `inversion_inicial`, `rendimiento_kg_ha`, `observaciones`) VALUES
 (4, 11, 4, '2018-11-20', NULL, '5x4 m', 600, 0, 'Vivero Tarragona', 'Vaso', 9800.00, 12000.00, NULL),
-(6, 11, 5, '2015-12-10', '2023-08-15', '6x5 m', 450, 12, 'Vivero Cooperativo', NULL, 7500.00, 16500.00, NULL);
+(6, 11, 5, '2015-12-10', '2023-08-15', '6x5 m', 450, 12, 'Vivero Cooperativo', NULL, 7500.00, 16500.00, NULL),
+(7, 12, 3, '2026-04-19', NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL),
+(8, 13, 7, '2026-04-19', NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -850,6 +937,13 @@ CREATE TABLE `observacions_sector` (
   `id_treballador` int(11) DEFAULT NULL,
   `tipus` enum('GENERAL','FITOSANITARI','FENOLÒGIC') DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `observacions_sector`
+--
+
+INSERT INTO `observacions_sector` (`id`, `id_sector`, `data_observacio`, `observacio`, `id_treballador`, `tipus`) VALUES
+(1, 13, '2026-04-19', 'El estat es correcte i seguiex creixent en bon estat', 6, 'FENOLÒGIC');
 
 -- --------------------------------------------------------
 
@@ -1182,7 +1276,8 @@ INSERT INTO `tasques` (`id_tasca`, `id_sector`, `tipus_tasca`, `descripcio`, `pa
 (5, NULL, 'Collita', 'S\'ha de collir tot', NULL, '2025-12-02', '2025-12-09', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'PENDENT', 'MITJA', '2025-12-02 09:52:00'),
 (6, NULL, 'Collita', 'S\'ha de collir tot', NULL, '2025-12-02', '2025-12-09', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'PENDENT', 'MITJA', '2025-12-02 09:52:36'),
 (7, NULL, 'Collita', 'S\'ha de collir tot', NULL, '2025-12-02', '2025-12-09', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'PENDENT', 'MITJA', '2025-12-02 09:55:30'),
-(8, NULL, 'Collita', '', NULL, '2025-12-15', '2025-12-22', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'PENDENT', 'URGENT', '2025-12-15 08:42:30');
+(8, NULL, 'Collita', '', NULL, '2025-12-15', '2025-12-22', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'PENDENT', 'URGENT', '2025-12-15 08:42:30'),
+(9, 11, 'Podar', 'Poder totes les files del cerezos', NULL, '2026-04-19', '2026-04-26', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'PENDENT', 'MITJA', '2026-04-19 15:33:09');
 
 -- --------------------------------------------------------
 
@@ -1564,6 +1659,13 @@ ALTER TABLE `fertilizantes`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indices de la tabla `fichas_tractament`
+--
+ALTER TABLE `fichas_tractament`
+  ADD PRIMARY KEY (`id_ficha`),
+  ADD KEY `id_sector` (`id_sector`);
+
+--
 -- Indices de la tabla `filas_arboles`
 --
 ALTER TABLE `filas_arboles`
@@ -1584,6 +1686,25 @@ ALTER TABLE `formacio`
 ALTER TABLE `fotos_parcela`
   ADD PRIMARY KEY (`id`),
   ADD KEY `parcela_id` (`parcela_id`);
+
+--
+-- Indices de la tabla `grups_treball`
+--
+ALTER TABLE `grups_treball`
+  ADD PRIMARY KEY (`id_grup`);
+
+--
+-- Indices de la tabla `grup_treballadors`
+--
+ALTER TABLE `grup_treballadors`
+  ADD PRIMARY KEY (`id_grup`);
+
+--
+-- Indices de la tabla `grup_treballadors_treballadors`
+--
+ALTER TABLE `grup_treballadors_treballadors`
+  ADD PRIMARY KEY (`id_grup`,`id_treballador`),
+  ADD KEY `id_treballador` (`id_treballador`);
 
 --
 -- Indices de la tabla `herbicidas`
@@ -1904,7 +2025,7 @@ ALTER TABLE `variedades`
 -- AUTO_INCREMENT de la tabla `alertes`
 --
 ALTER TABLE `alertes`
-  MODIFY `id_alerta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id_alerta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT de la tabla `alertes_historial`
@@ -1934,7 +2055,7 @@ ALTER TABLE `aplicacions`
 -- AUTO_INCREMENT de la tabla `assignacions`
 --
 ALTER TABLE `assignacions`
-  MODIFY `id_assignacio` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id_assignacio` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT de la tabla `auditoria_cambios`
@@ -2027,10 +2148,16 @@ ALTER TABLE `fertilizantes`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
+-- AUTO_INCREMENT de la tabla `fichas_tractament`
+--
+ALTER TABLE `fichas_tractament`
+  MODIFY `id_ficha` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT de la tabla `filas_arboles`
 --
 ALTER TABLE `filas_arboles`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
 
 --
 -- AUTO_INCREMENT de la tabla `formacio`
@@ -2043,6 +2170,18 @@ ALTER TABLE `formacio`
 --
 ALTER TABLE `fotos_parcela`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `grups_treball`
+--
+ALTER TABLE `grups_treball`
+  MODIFY `id_grup` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- AUTO_INCREMENT de la tabla `grup_treballadors`
+--
+ALTER TABLE `grup_treballadors`
+  MODIFY `id_grup` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT de la tabla `herbicidas`
@@ -2060,7 +2199,7 @@ ALTER TABLE `herbicidas_tipos_hierba`
 -- AUTO_INCREMENT de la tabla `historial_cultivos`
 --
 ALTER TABLE `historial_cultivos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de la tabla `horaris`
@@ -2126,7 +2265,7 @@ ALTER TABLE `movimientos_stock`
 -- AUTO_INCREMENT de la tabla `observacions_sector`
 --
 ALTER TABLE `observacions_sector`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `pagaments`
@@ -2192,7 +2331,7 @@ ALTER TABLE `registro_tractaments`
 -- AUTO_INCREMENT de la tabla `sectores_cultivo`
 --
 ALTER TABLE `sectores_cultivo`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT de la tabla `sectores_parcelas`
@@ -2216,7 +2355,7 @@ ALTER TABLE `stock_herbicidas`
 -- AUTO_INCREMENT de la tabla `tasques`
 --
 ALTER TABLE `tasques`
-  MODIFY `id_tasca` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id_tasca` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT de la tabla `tasques_maquinaria`
@@ -2246,7 +2385,7 @@ ALTER TABLE `tipos_suelo`
 -- AUTO_INCREMENT de la tabla `treballadors`
 --
 ALTER TABLE `treballadors`
-  MODIFY `id_treballador` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id_treballador` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT de la tabla `users_app`
@@ -2351,6 +2490,12 @@ ALTER TABLE `documentos_parcela`
   ADD CONSTRAINT `documentos_parcela_ibfk_1` FOREIGN KEY (`parcela_id`) REFERENCES `parcelas` (`id`) ON DELETE CASCADE;
 
 --
+-- Filtros para la tabla `fichas_tractament`
+--
+ALTER TABLE `fichas_tractament`
+  ADD CONSTRAINT `fichas_tractament_ibfk_1` FOREIGN KEY (`id_sector`) REFERENCES `sectores_cultivo` (`id`);
+
+--
 -- Filtros para la tabla `filas_arboles`
 --
 ALTER TABLE `filas_arboles`
@@ -2368,6 +2513,13 @@ ALTER TABLE `formacio`
 --
 ALTER TABLE `fotos_parcela`
   ADD CONSTRAINT `fotos_parcela_ibfk_1` FOREIGN KEY (`parcela_id`) REFERENCES `parcelas` (`id`) ON DELETE CASCADE;
+
+--
+-- Filtros para la tabla `grup_treballadors_treballadors`
+--
+ALTER TABLE `grup_treballadors_treballadors`
+  ADD CONSTRAINT `grup_treballadors_treballadors_ibfk_1` FOREIGN KEY (`id_grup`) REFERENCES `grup_treballadors` (`id_grup`) ON DELETE CASCADE,
+  ADD CONSTRAINT `grup_treballadors_treballadors_ibfk_2` FOREIGN KEY (`id_treballador`) REFERENCES `treballadors` (`id_treballador`) ON DELETE CASCADE;
 
 --
 -- Filtros para la tabla `herbicidas_tipos_hierba`
